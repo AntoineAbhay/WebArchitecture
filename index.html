@@ -15,6 +15,11 @@
     <h1>Web Architecture</h1>
   </header>
 
+  <section class="odd">
+    <h2>Comment rester informé sur le sujet ?</h2>
+    <a href="https://www.infoq.com/architecture-design">infoQ - architecture and design</a>
+  </section>
+
   <section class="even">
     <h2>Architecture monolythique</h2>
     <p>
@@ -109,18 +114,46 @@
     </ul>
 
     <h3>Inconvénients</h3>
-    <p>
-      Ce style d'architecture est plus compliqué à mettre en oeuvre.
-      En effet, en augmentant le nombre de processus et de bases de données,
-      on aumente la complexité de l'infrastructure à mettre en place.
-      Toutefois des outils permettant d'automatiser les déploiements existent
-      et permettent de répondre à ce problème de complexité.
-    </p>
+    <ul>
+      <li>Complexité pour déployer
+        <p>
+          Il faut réussir à gérer de nombreuses instances en même temps
+          et savoir les passer à l'échelle.
+          Cette tâche est loin d'être triviale mais des outils d'automatisation
+          comme docker et kubernetes permettent de rendre les choses plus simples.
+          D'une part Docker permet de travailler sur un environment toujours identique
+          indépendemment de la machine (il s'agit de conteneurisation).
+          D'autre part, Kubernetes permet l'orchestrationn de tous ces conteneurs.
+        </p>
+      </li>
+      <li>Architecture plus complexe (monitoring et maintenance)
+        <p>
+          On multiplie le nombre d'instances et de base de données donc l'infrastructure devient plus complexe.
+          Ceci pose notamment un problème pour le monitoring et la maintenance.
+          Mais des outils existent pour surveiller le fonctionnement des micro-services (Prometheus, Kibana, Graphana)
+        </p>
+      </li>
+      <li>Communication entre services
+        <p>
+          On ajoute une couche de complexité en devant assurer la communication entre les différents services
+          de manière synchrone ou asynchrone selon les besoins de l'application.
+        </p>
+      </li>
+      <li>Cohérence des données
+        <p>
+          Il est plus difficile d'assurer la cohérence des données dans un système distribué
+          car on ne peut pas garantir l'atomicité des opérations sur la base de données.
+        </p>
+      </li>
+    </ul>
 
   </section>
 
+  
+
   <footer>
     This is a footer
+
   </footer>
 </body>
 
