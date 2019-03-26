@@ -1,25 +1,127 @@
 <!doctype html>
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Web Architecture</title>
-    <meta name="description" content="Web Architecture trends in 2019">
-    <meta name="author" content="Antoine ABHAY">
-    <link rel="stylesheet" href="style.css">
-  </head>
 
-  <body>
-    <header>
-      <h1>Web Architecture</h1>
-    </header>
+<head>
+  <meta charset="utf-8">
+  <title>Web Architecture</title>
+  <meta name="description" content="Web Architecture trends in 2019">
+  <meta name="author" content="Antoine ABHAY">
+  <link rel="stylesheet" href="style.css">
+</head>
 
-    <section>
-      This is a section
-    </section>
+<body>
+  <header>
+    <h1>Web Architecture</h1>
+  </header>
 
-    <footer>
-      This is a footer
-    </footer>
-  </body>
+  <section class="even">
+    <h2>Architecture monolythique</h2>
+    <p>
+      Pour comprendre ce qu'est une architecture en micro-services,
+      il faut d'abord comprendre ce qu'est une architecture monolythique.
+      Il s'agit de la manière la plus simple de construire un projet (en tout cas au début).
+      En effet, le code est réuni en un seul endroit
+      et il n'y a qu'une base de données réunissant toutes les informations du système.
+    </p>
+
+
+    <h3>Avantages</h3>
+    <p>Ce style d'architecture est très simple à mettre en place et assez naturel.</p>
+    <h3>Inconvénients</h3>
+    <p>
+      <ul>
+        <li>Scalabilité
+          <p>
+            On peut noter une faible scalabilité de cette architecture.
+            Bien qu'il soit possible de multiplier les instances derrière un répartiteur de charge,
+            il n'y a qu'une seule base de données qui représente un goulot d'étranglement si le système grandit.
+            Ce problème peut devenir très coûteux s'il est nécessaire de mettre à l'échelle de manière verticale
+            au niveau de la base de donnée (ie. utiliser une machine de plus grande capacité plutôt que de multiplier les machines).
+          </p>
+        </li>
+        <li>Fiabilité
+          <p>Il est difficile de tester un gros système en un seul bloc.</p>
+        </li>
+        <li>Évolutivité
+          <p>Les interdépendances au sein du code ne permettent pas de faire évoluer le produit rapidement.</p>
+        </li>
+        <li>Autonomie des équipes
+          <p>
+            Les équipes ne sont pas autonomes.
+            Elles doivent se concerter en permanence pour connaître les implications des changements
+            qu'elles veulent réaliser sur le travail des autres.
+            Cela peut par exemple conduire à un grand nombre de "merge conflict" assez pénibles à résoudre.
+          </p>
+        </li>
+      </ul>
+    </p>
+
+  </section>
+
+  <section class="odd">
+    <h2>Architecture micro-services</h2>
+    <p>
+      Dans une architecture en micro-services,
+      l'application est divisée en bloc applicatifs plus petits.
+      Chaque bloc ou micro-service est indépendant des autres
+      dans la mesure où les services discutent entre eux uniquement via leur APIs respectives.
+      Cette architecture permet de répondre aux principaux problèmes du monolythe
+      mais présente également des inconvénients.
+    </p>
+
+    <h3>Avantages</h3>
+    <ul>
+      <li>Scalabilité
+        <p>
+          Les micro-services peuvent être mis à l'échelle indépendemment des autres.
+
+        </p>
+      </li>
+      <li>Fiabilité
+        <p>
+          Il est plus simple de tester un micro-service qu'un gros monolythe.
+          De plus, on peut faire en sorte de découpler les micro-services
+          pour qu'un problème sur une brique de l'application n'affecte pas les autres.
+          On a alors un mode dégradé qui peut être peu handicapant voire transparent vis à vis de l'utilisateur.
+          On augmente ainsi la disponibilité du service.
+        </p>
+      </li>
+      <li>Évolutivité
+        <p>
+          Son indépendance permet de faire évoluer le micro-service de manière beaucoup plus rapide.
+        </p>
+      </li>
+      <li>Autonomie des équipes
+        <p>
+          Les équipes gagnent en autonomie car au délà de l'interface qu'elles affiche par leur API,
+          elles sont libres de faire les choix qui leur conviennent le mieux.
+        </p>
+      </li>
+      <li>Applications polyglottes
+          <p>
+            Un langage différent peut être utilisé pour chaque micro-service.
+            Chacun d'entre eux échange des données via des formats indépendants du langage
+            et supporté très largement comme XML ou JSON.
+            Cela permet de choisir le langage le plus adapté à la fonction du service.
+          </p>
+        </li>
+    </ul>
+
+    <h3>Inconvénients</h3>
+    <p>
+      Ce style d'architecture est plus compliqué à mettre en oeuvre.
+      En effet, en augmentant le nombre de processus et de bases de données,
+      on aumente la complexité de l'infrastructure à mettre en place.
+      Toutefois des outils permettant d'automatiser les déploiements existent
+      et permettent de répondre à ce problème de complexité.
+    </p>
+
+  </section>
+
+  <footer>
+    This is a footer
+  </footer>
+</body>
+
 </html>

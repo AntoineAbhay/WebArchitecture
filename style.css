@@ -1,7 +1,8 @@
 :root {
     --primary-color: #bdbdbd;
     --primary-color-dark: #8d8d8d;
-    --primary-color-light: #efefef;
+    --primary-color-light: #e0e0e0;
+    --primary-color-lighter: #efefef;
     --secondary-color: #303f9f;
     --secondary-color-dark: #001970;
     --secondary-color-light: #666ad1;
@@ -16,19 +17,43 @@ html, body {
 }
 
 body {
-    background-color: var(--primary-color-light);
+    background-color: var(--primary-color-lighter);
 }
 
-.header {
+header {
     width: 100%;
     background-color: var(--primary-color-dark);
-    color: var(--primary-color-light);
+    color: var(--primary-color-lighter);
     text-align: center;
-    font-size: 3em;
+    font-size: 2em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     font-variant: small-caps;
     font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    text-align: justify;
+}
+
+section{
+    padding: 5px 10%;    
+}
+
+.odd {
+    background-color: var(--primary-color-light);
+}
+
+li p {
+    font-size: 0.8em;
+    margin-top: 0px;
+}
+
+footer {
+    width: 100%;
+    background-color: var(--primary-color-dark);
+    color: var(--primary-color-lighter);
+    text-align: center;
 }
 
 .container {
@@ -48,7 +73,7 @@ input[type="text"] {
     border: none;
     font-size: 16px;
     font-family: Monaco, Andale Mono, monospace;
-    background-color: var(--primary-color-light);
+    background-color: var(--primary-color-lighter);
 }
 
 input:focus{
@@ -67,7 +92,7 @@ button:active{
 button {
     padding: 0.3em;
     border: 2px solid var(--secondary-color-dark);
-    background-color: var(--primary-color-light);
+    background-color: var(--primary-color-lighter);
     border-radius: 0px;
     font-size: 16px;
     text-transform: uppercase;
