@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Web Architecture</title>
+  <title>Architecture Web</title>
   <meta name="description" content="Web Architecture trends in 2019">
   <meta name="author" content="Antoine ABHAY">
   <link rel="stylesheet" href="style.css">
@@ -12,15 +12,32 @@
 
 <body>
   <header>
-    <h1>Web Architecture</h1>
+    <h1>Architecture Web</h1>
   </header>
 
-  <section class="odd">
+  <section style="display:none;">
     <h2>Comment rester informé sur le sujet ?</h2>
     <a href="https://www.infoq.com/architecture-design">infoQ - architecture and design</a>
   </section>
+  <div class="spacer">&nbsp;</div>
 
-  <section class="even">
+  <section>
+    <h2>Introduction</h2>
+    <p>
+      Ceci est une présentation des architectures logicielles pour le web dont on parle en 2019.
+      Elle a pour but d'aborder les différences entre diverses architectures,
+      leurs avantages et leurs inconvénients.
+    </p>
+    <p>
+      Aujourd'hui, certains services ont des utilisateurs partout dans le monde,
+      ont des pétaoctets de données éparpillés sur plusieurs serveurs,
+      ont des besoins en terme de fiabilité, et de disponibilité toujours plus grands.
+      C'est pour ces raisons que les architectures d'hier ne sont plus toujours suffisantes aujourd'hui.
+    </p>
+  </section>
+  <div class="spacer">&nbsp;</div>
+
+  <section>
     <h2>Architecture monolythique</h2>
     <p>
       Pour comprendre ce qu'est une architecture en micro-services,
@@ -42,7 +59,8 @@
             Bien qu'il soit possible de multiplier les instances derrière un répartiteur de charge,
             il n'y a qu'une seule base de données qui représente un goulot d'étranglement si le système grandit.
             Ce problème peut devenir très coûteux s'il est nécessaire de mettre à l'échelle de manière verticale
-            au niveau de la base de donnée (ie. utiliser une machine de plus grande capacité plutôt que de multiplier les machines).
+            au niveau de la base de donnée (ie. utiliser une machine de plus grande capacité plutôt que de multiplier
+            les machines).
           </p>
         </li>
         <li>Fiabilité
@@ -63,14 +81,16 @@
     </p>
 
   </section>
+  <div class="spacer">&nbsp;</div>
 
-  <section class="odd">
+  <section>
     <h2>Architecture micro-services</h2>
     <p>
       Dans une architecture en micro-services,
       l'application est divisée en bloc applicatifs plus petits.
       Chaque bloc ou micro-service est indépendant des autres
       dans la mesure où les services discutent entre eux uniquement via leur APIs respectives.
+      L'idée principale derrière cette architecture est l'indépendance des différents services.
       Cette architecture permet de répondre aux principaux problèmes du monolythe
       mais présente également des inconvénients.
     </p>
@@ -104,13 +124,14 @@
         </p>
       </li>
       <li>Applications polyglottes
-          <p>
-            Un langage différent peut être utilisé pour chaque micro-service.
-            Chacun d'entre eux échange des données via des formats indépendants du langage
-            et supporté très largement comme XML ou JSON.
-            Cela permet de choisir le langage le plus adapté à la fonction du service.
-          </p>
-        </li>
+        <p>
+          Un langage différent peut être utilisé pour chaque micro-service.
+          Chacun d'entre eux échange des données via des formats indépendants du langage
+          et supporté très largement comme XML ou JSON.
+          Cela permet de choisir le langage le plus adapté à la fonction du service
+          ou le langage préféré par une certaine équipe.
+        </p>
+      </li>
     </ul>
 
     <h3>Inconvénients</h3>
@@ -148,13 +169,114 @@
     </ul>
 
   </section>
+  <div class="spacer">&nbsp;</div>
 
-  
+  <section>
+    <h2>Architecture basée sur des événements</h2>
+    <p>
+      Dans une architecture orientée événement,
+      on se focalise sur ce qui se passe plutôt que sur ce qui est.
+      On s'intéresse aux conséquences d'un fait et aux échanges de données plutôt qu'à l'état actuel des choses.
+      Cela permet de résoudre certains poblèmes des micro-services concernant la cohérence des données notamment.
+    </p>
+    <p>
+      Dans ce contexte, les micro-services sont des producteurs et consommateurs d'événements.
+      Ils sont à l'écoute des autres services pour recevoir des événements
+      et réagir (ou non) en fonction de la nature de l'événement.
+      On dit qu'ils souscrivent à un flux d'événements.
+    </p>
 
-  <footer>
-    This is a footer
 
-  </footer>
+    <h3>Comment gérer les données partagées entre services ?</h3>
+    <p>Deux solutions sont possibles :</p>
+    <ol>
+      <li>Interroger le service responsable de la donnée de manière synchrone
+        <p>On peut faire ça mais c'est peut être trop long pour nos besoins, ou trop coûteux.</p>
+      </li>
+      <li> Gérer un cache grâce aux événements
+        <p>
+          On n'interroge qu'un seul service qui aura l'information dont il n'est pas maître en cache.
+          Le maître de l'information est donc chargé d'émettre un événement à chaque modification de la donnée
+          pour que les autres services puissent la mettre à jour dans leur base de données
+          et ainsi avoir une cohérence entre services.
+        </p>
+      </li>
+    </ol>
+
+    <h3>Comment faire une jointure dans un système distribué ?</h3>
+    <p>Deux solutions sont possibles :</p>
+    <ol>
+      <li>Interroger chaque service depuis l'application.
+        <p>On peut faire ça mais c'est peut être trop long pour nos besoins, ou trop coûteux.</p>
+      </li>
+      <li> Créer un service qui matérialise la vue.
+        <p>
+          On créer un service qui aura une table qui correpondra à la jointure souhaitée.
+          Cette table sera mise à jour lorsqu'un service émettra un événement signalant la modification d'une donnée.
+        </p>
+      </li>
+    </ol>
+
+
+    <h3>Comment réaliser des transactions ?</h3>
+    <p>
+      On préfère tout simplement ne pas réaliser de transactions distribuées
+      pour conserver un découplage entre service le plus fort possible.
+      On veut toutefois assurer une cohérence de la données au moins à terme.
+      Pour cela on crée un processus au cours duquel on va réaliser de manière successive toutes les opérations.
+      Une mise à jour d'une donnée sur un service A entraîne via un événement une mise à jour d'une donnée sur le
+      service B etc.
+      Si tout se passe bien, les données sont bien mises à jour sur tous les services.
+    </p>
+    <p>
+      Si, au contraire, on rencontre un problème au cours du processus,
+      on est capable d'émettre des événements pour annuler les opérations qui ont eu lieu avant dans la transaction.
+      On assure donc de réaliser une transaction dans sa totalité ou pas dutout mais avec un temps de latence.
+      On aura donc un moment durant lequel la donnée n'est pas cohérente partout dans le système.
+      Toutefois ce moment reste assez court et on est capable,
+      en suivant le flux d'événement, de savoir si on se trouve au milieu d'une transaction
+      ou si la donnée a bine été modifiée de manière globale.
+    </p>
+
+    <h3>Les autres avantages</h3>
+
+    <ul>
+      <li>Création d'îlots de cohérence et de stabilité</li>
+      <li>Création d'un historique complet qui amène d'énormes possibilités :
+
+        <ul>
+          <li>Debogage</li>
+          <li>Audit</li>
+          <li>Rétablissement en cas de panne</li>
+          <li>Réplication : On peut répliquer l'état actuel en faisant passant tous les événements en revue</li>
+          <li>'Fork' : on peut créer un nouvel état à partir de l'ensemble des événements</li>
+        </ul>
+      </li>
+
+    </ul>
+
+  </section>
+  <div class="spacer">&nbsp;</div>
+
+  <section>
+    <h2>Conclusion</h2>
+    <p>
+      Personne ne commence par créer une architecture en micro-services.
+      Ce besoin n'arrive que lorsque le système grossit beaucoup et
+      la majeure partie des applications ne nécessitent pas d'avoir une telle architecture.
+    </p>
+    <p>
+      <b>Commencer par un monolythe c'est bien.</b>
+      En effet, c'est la manière la plus simple pour construire une application.
+      Toutefois, cette architecture simple a ses limites
+      et une des manières de les dépasser est l'architecture en micro-services orientée événement.
+      On peut gagner en scalabilité, en disponibilité, en résilience
+      mais attention à la cohérence des données qui n'est plus assurée qu'à terme.
+    </p>
+
+  </section>
+  <div class="spacer">&nbsp;</div>
+
 </body>
 
 </html>

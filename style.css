@@ -1,8 +1,8 @@
 :root {
     --primary-color: #bdbdbd;
     --primary-color-dark: #8d8d8d;
-    --primary-color-light: #e0e0e0;
-    --primary-color-lighter: #efefef;
+    --primary-color-light: #efefef;
+    --primary-color-lighter: #fdfdfd;
     --secondary-color: #303f9f;
     --secondary-color-dark: #001970;
     --secondary-color-light: #666ad1;
@@ -12,17 +12,17 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Monaco, Andale Mono, monospace;
+    font-family: 'Montserrat', sans-serif;
     font-size: 16px;
 }
 
 body {
-    background-color: var(--primary-color-lighter);
+    background-color: var(--secondary-color-dark);
 }
 
 header {
     width: 100%;
-    background-color: var(--primary-color-dark);
+    background-color: var(--secondary-color-dark);
     color: var(--primary-color-lighter);
     text-align: center;
     font-size: 2em;
@@ -37,11 +37,15 @@ p {
 }
 
 section{
-    padding: 5px 10%;    
+    padding: 40px;
+    padding-top: 20px;
+    margin: 0 10%; 
+    background-color: var(--primary-color-lighter)
 }
 
-.odd {
-    background-color: var(--primary-color-light);
+.spacer{
+    height: 40px;
+    background-color: var(--secondary-color-dark);
 }
 
 li p {
