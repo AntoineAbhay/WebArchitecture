@@ -39,7 +39,6 @@ p {
 section{
     padding: 40px;
     padding-top: 20px;
-    margin: 0 10%; 
     background-color: var(--primary-color-lighter)
 }
 
@@ -108,7 +107,39 @@ button {
 }
 
 
+img{
+    width:80%;
+    margin: 0 10%;
+}
 
+.caption{
+    width: 80%;
+    margin: 0 10% 50px 10%;
+    text-align: center;
+    text-decoration: underline;
+    font-size: 14px;
+    font-style: italic;
+}
+
+ul{
+    padding-left: 20px;
+}
+
+
+@media all and (max-width: 1024px)
+{
+    section{
+        margin: 0 10%; 
+    }
+
+    
+}
+@media all and (min-width : 1024px)
+{
+    section{
+        margin: 0 25%; 
+    }
+}
 
 
     
