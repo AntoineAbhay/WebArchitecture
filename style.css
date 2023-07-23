@@ -1,10 +1,10 @@
 :root {
     --primary-color: #bdbdbd;
     --primary-color-dark: #8d8d8d;
-    --primary-color-light: #efefef;
+    --primary-color-light: #e2e8f0;
     --primary-color-lighter: #fdfdfd;
     --secondary-color: #303f9f;
-    --secondary-color-dark: #001970;
+    --secondary-color-dark: #0f172a;
     --secondary-color-light: #666ad1;
 }
 
@@ -17,13 +17,13 @@ html, body {
 }
 
 body {
-    background-color: var(--secondary-color-dark);
+    background-color: var(--primary-color-lighter);
 }
 
 header {
     width: 100%;
     background-color: var(--secondary-color-dark);
-    color: var(--primary-color-lighter);
+    color: var(--primary-color-light);
     text-align: center;
     font-size: 2em;
     padding-top: 0.5em;
@@ -39,12 +39,12 @@ p {
 section{
     padding: 40px;
     padding-top: 20px;
-    background-color: var(--primary-color-lighter)
+    background-color: var(--primary-color-lighter);
+    border-bottom: var(--primary-color) solid 1px;
 }
 
 .spacer{
     height: 40px;
-    background-color: var(--secondary-color-dark);
 }
 
 li p {
